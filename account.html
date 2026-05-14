@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Личный кабинет | Brooks Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account.css">
+</head>
+<body class="page">
+
+    <!-- навигация -->
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__logo">BROOKS STUDIO</a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="collection.html" class="nav__link">Коллекция</a></li>
+                    <li class="nav__item"><a href="404.html" class="nav__link">Экспозиция</a></li>
+                    <li class="nav__item"><a href="404.html" class="nav__link">Манифест</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- основной контент -->
+    <main class="account">
+        
+        <div class="account__header">
+            <h1 class="account__title">Личный кабинет</h1>
+            <p class="account__subtitle">Управление профилем и избранное</p>
+        </div>
+
+        <div class="account__grid">
+            
+            <!-- левая колонка - профиль -->
+            <div class="profile">
+                <img src="image/avatar.png" alt="Аватар" class="profile__avatar">
+                <h2 class="profile__name" id="displayName">Don Brooks</h2>
+                <p class="profile__email" id="displayEmail">don@brooks.studio</p>
+                <p class="profile__location" id="displayLocation">New York, USA</p>
+                <span class="profile__badge">Коллекционер</span>
+                
+                <div class="profile__stats">
+                    <div class="stat">
+                        <div class="stat__value" id="favoritesCount">0</div>
+                        <div class="stat__label">Избранное</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat__value" id="downloadsCount">0</div>
+                        <div class="stat__label">Скачиваний</div>
+                    </div>
+                </div>
+                
+                <button class="button button--logout" id="logoutBtn">Выйти из аккаунта</button>
+            </div>
+
+            <!-- правая колонка - вкладки -->
+            <div class="cabinet">
+                <div class="cabinet__tabs">
+                    <button class="cabinet__tab cabinet__tab--active" data-tab="profile">Профиль</button>
+                    <button class="cabinet__tab" data-tab="favorites">Избранное</button>
+                </div>
+
+                <!-- вкладка Профиль -->
+                <div class="cabinet__content cabinet__content--active" id="tab-profile">
+                    <div class="info-row">
+                        <div class="info-row__label">Имя и фамилия</div>
+                        <div class="info-row__value" id="infoName">Don Brooks</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-row__label">Электронная почта</div>
+                        <div class="info-row__value" id="infoEmail">don@brooks.studio</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-row__label">Локация</div>
+                        <div class="info-row__value" id="infoLocation">New York, USA</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-row__label">Дата регистрации</div>
+                        <div class="info-row__value" id="infoDate">14 мая 2026</div>
+                    </div>
+                </div>
+
+                <!-- вкладка Избранное -->
+                <div class="cabinet__content" id="tab-favorites">
+                    <div class="favorites" id="favoritesGrid"></div>
+                    <div id="emptyFavorites" class="favorites__empty" style="display: none;">
+                        <i class="fa-regular fa-heart"></i>
+                        <p>У вас пока нет избранных работ</p>
+                        <p class="favorites__empty-link">Перейдите в <a href="collection.html">коллекцию</a> и добавьте понравившиеся работы</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- футер -->
+    <footer class="footer">
+        <div class="footer__container">
+            <p class="footer__copyright">© 1998–2026 Brooks Studio</p>
+            <div class="footer__social">
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- модальное окно -->
+    <div id="imageModal" class="modal">
+        <span class="modal__close">&times;</span>
+        <img class="modal__content" id="modalImage">
+        <div class="modal__info" id="modalInfo"></div>
+    </div>
+
+    <script>
+        const artworks = [
+            { id: 1, src: "image/art1.png", title: "Roadside Cafe", year: 1999, category: "city", technique: "Масло, холст" },
+            { id: 2, src: "image/art2.png", title: "Lawn Club", year: 2001, category: "scene", technique: "Акрил, холст" },
+            { id: 3, src: "image/art3.png", title: "Harbor Town", year: 1990, category: "landscape", technique: "Масло, холст" },
+            { id: 4, src: "image/art4.png", title: "Forest Lake", year: 1995, category: "landscape", technique: "Масло, холст" },
+            { id: 5, src: "image/art5.png", title: "Radio Tower Valley", year: 1997, category: "landscape", technique: "Акрил, холст" }
+        ];
+
+        const STORAGE_KEY = 'brooks_favorites';
+
+        function loadFavorites() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        function saveFavorites(favorites) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
+            updateFavoritesCount();
+        }
+
+        function updateFavoritesCount() {
+            const count = loadFavorites().length;
+            const favoritesCountEl = document.getElementById('favoritesCount');
+            if (favoritesCountEl) {
+                favoritesCountEl.textContent = count;
+            }
+        }
+
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalInfo = document.getElementById('modalInfo');
+        const closeModal = document.querySelector('.modal__close');
+
+        function openModal(src, title, year, technique) {
+            modalImg.src = src;
+            modalInfo.innerHTML = `<h3>${title}</h3><p><strong>${year}</strong> | ${technique}</p>`;
+            modal.style.display = 'flex';
+        }
+
+        function renderFavorites() {
+            const favorites = loadFavorites();
+            const grid = document.getElementById('favoritesGrid');
+            const emptyEl = document.getElementById('emptyFavorites');
+            
+            if (favorites.length === 0) {
+                if (grid) grid.innerHTML = '';
+                if (emptyEl) emptyEl.style.display = 'block';
+                return;
+            }
+            
+            if (emptyEl) emptyEl.style.display = 'none';
+            
+            const favoriteArts = artworks.filter(art => favorites.includes(art.id));
+            
+            if (grid) {
+                grid.innerHTML = favoriteArts.map(art => `
+                    <div class="favorite" data-id="${art.id}" data-src="${art.src}" data-title="${art.title}" data-year="${art.year}" data-technique="${art.technique}">
+                        <img src="${art.src}" alt="${art.title}" class="favorite__image" loading="lazy">
+                        <div class="favorite__info">
+                            <div class="favorite__title">${art.title}</div>
+                            <div class="favorite__year">${art.year}</div>
+                        </div>
+                        <button class="favorite__remove" data-id="${art.id}">
+                            <i class="fa-regular fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            
+            document.querySelectorAll('.favorite').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('favorite__remove') || e.target.closest('.favorite__remove')) {
+                        return;
+                    }
+                    const src = item.getAttribute('data-src');
+                    const title = item.getAttribute('data-title');
+                    const year = item.getAttribute('data-year');
+                    const technique = item.getAttribute('data-technique');
+                    openModal(src, title, year, technique);
+                });
+            });
+            
+            document.querySelectorAll('.favorite__remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    let favorites = loadFavorites();
+                    favorites = favorites.filter(favId => favId !== id);
+                    saveFavorites(favorites);
+                    renderFavorites();
+                });
+            });
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            modalInfo.innerHTML = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                modalInfo.innerHTML = '';
+            }
+        });
+
+        const tabBtns = document.querySelectorAll('.cabinet__tab');
+        const tabContents = {
+            profile: document.getElementById('tab-profile'),
+            favorites: document.getElementById('tab-favorites')
+        };
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                tabBtns.forEach(b => b.classList.remove('cabinet__tab--active'));
+                btn.classList.add('cabinet__tab--active');
+                Object.values(tabContents).forEach(content => {
+                    if (content) content.classList.remove('cabinet__content--active');
+                });
+                if (tabContents[tabId]) {
+                    tabContents[tabId].classList.add('cabinet__content--active');
+                }
+            });
+        });
+
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                if (confirm('Вы уверены, что хотите выйти?')) {
+                    localStorage.removeItem(STORAGE_KEY);
+                    localStorage.removeItem('isLoggedIn');
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        updateFavoritesCount();
+        renderFavorites();
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>404 | Страница не найдена | Brooks Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/error.css">
+</head>
+<body class="page">
+
+    <!-- навигация -->
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__logo">BROOKS STUDIO</a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="collection.html" class="nav__link">Коллекция</a></li>
+                    <li class="nav__item"><a href="404.html" class="nav__link nav__link--active">Экспозиция</a></li>
+                    <li class="nav__item"><a href="404.html" class="nav__link">Манифест</a></li>
+                </ul>
+            </nav>
+            <button class="button button--login" onclick="window.location.href='login.html'">Войти</button>
+        </div>
+    </header>
+
+    <!-- основной контент -->
+    <main class="error">
+        <div class="error__container">
+            <div class="error__code">404</div>
+            <h1 class="error__title">Страница не найдена</h1>
+            <p class="error__description">
+                Возможно, эта страница была удалена, перемещена или никогда не существовала.<br>
+                Но у нас есть кое-что получше — наша коллекция.
+            </p>
+            <div class="error__line"></div>
+            <div class="error__buttons">
+                <a href="index.html" class="button button--home">На главную</a>
+                <a href="collection.html" class="button button--collection">В коллекцию</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- футер -->
+    <footer class="footer">
+        <div class="footer__container">
+            <p class="footer__copyright">© 1998–2026 Brooks Studio</p>
+            <div class="footer__social">
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
