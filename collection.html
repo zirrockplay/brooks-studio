@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Коллекция | Brooks Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/collection.css">
+</head>
+<body class="page">
+
+    <!-- навигация -->
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="header__logo">BROOKS STUDIO</a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="collection.html" class="nav__link nav__link--active">Коллекция</a></li>
+                    <li class="nav__item"><a href="404.html" class="nav__link">Экспозиция</a></li>
+                    <li class="nav__item"><a href="404.html" class="nav__link">Манифест</a></li>
+                </ul>
+            </nav>
+            <button class="button button--login" onclick="window.location.href='login.html'">Войти</button>
+        </div>
+    </header>
+
+    <!-- основная секция коллекции -->
+    <main class="collection">
+        
+        <div class="collection__header">
+            <h1 class="collection__title">Коллекция</h1>
+            <p class="collection__subtitle">
+                Полное собрание работ Дона Брукса. От ранних аналоговых опытов до современных цифровых полотен.
+            </p>
+        </div>
+
+        <!-- фильтры -->
+        <div class="filter">
+            <div class="filter__buttons">
+                <button class="filter__btn filter__btn--active" data-filter="all">Все работы</button>
+                <button class="filter__btn" data-filter="landscape">Пейзажи</button>
+                <button class="filter__btn" data-filter="city">Городские сцены</button>
+                <button class="filter__btn" data-filter="scene">Сцены / Портреты</button>
+                <button class="filter__btn" data-filter="digital">Цифровые работы</button>
+            </div>
+        </div>
+
+        <!-- сетка картин -->
+        <div class="collection__grid" id="collectionGrid"></div>
+
+    </main>
+
+    <!-- футер -->
+    <footer class="footer">
+        <div class="footer__container">
+            <p class="footer__copyright">© 1998–2026 Brooks Studio</p>
+            <div class="footer__social">
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="footer__social-link" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <div class="footer__decor">
+                <div class="footer__line footer__line--long"></div>
+                <div class="footer__line footer__line--short"></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- модальное окно -->
+    <div id="imageModal" class="modal">
+        <span class="modal__close">&times;</span>
+        <img class="modal__content" id="modalImage">
+        <div class="modal__info" id="modalInfo"></div>
+    </div>
+
+    <script>
+        const artworks = [
+            { id: 1, src: "image/art1.png", title: "Roadside Cafe", year: 1999, category: "city", technique: "Масло, холст" },
+            { id: 2, src: "image/art2.png", title: "Lawn Club", year: 2001, category: "scene", technique: "Акрил, холст" },
+            { id: 3, src: "image/art3.png", title: "Harbor Town", year: 1990, category: "landscape", technique: "Масло, холст" },
+            { id: 4, src: "image/art4.png", title: "Forest Lake", year: 1995, category: "landscape", technique: "Масло, холст" },
+            { id: 5, src: "image/art5.png", title: "Radio Tower Valley", year: 1997, category: "landscape", technique: "Акрил, холст" }
+        ];
+
+        const gridContainer = document.getElementById('collectionGrid');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalInfo = document.getElementById('modalInfo');
+        const closeModal = document.querySelector('.modal__close');
+
+        function getCategoryName(category) {
+            const categories = {
+                'landscape': 'Пейзаж',
+                'city': 'Городская сцена',
+                'scene': 'Сцена / Портрет',
+                'digital': 'Цифровая работа'
+            };
+            return categories[category] || category;
+        }
+
+        function openModal(src, title, year, technique) {
+            modalImg.src = src;
+            modalInfo.innerHTML = `<h3>${title}</h3><p><strong>${year}</strong> | ${technique}</p>`;
+            modal.style.display = 'flex';
+        }
+
+        function renderGallery(filter = 'all') {
+            const filtered = filter === 'all' ? artworks : artworks.filter(item => item.category === filter);
+            
+            if (filtered.length === 0) {
+                gridContainer.innerHTML = `<div class="collection__empty"><i class="fa-regular fa-image"></i><p>Нет работ в этой категории</p></div>`;
+                return;
+            }
+
+            gridContainer.innerHTML = filtered.map(art => `
+                <div class="card" data-src="${art.src}" data-title="${art.title}" data-year="${art.year}" data-technique="${art.technique}">
+                    <div class="card__inner">
+                        <img src="${art.src}" alt="${art.title}" class="card__image" loading="lazy">
+                    </div>
+                    <div class="card__info">
+                        <h3 class="card__title">${art.title}</h3>
+                        <p class="card__year">${art.year}</p>
+                        <span class="card__category">${getCategoryName(art.category)}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const src = card.getAttribute('data-src');
+                    const title = card.getAttribute('data-title');
+                    const year = card.getAttribute('data-year');
+                    const technique = card.getAttribute('data-technique');
+                    openModal(src, title, year, technique);
+                });
+            });
+        }
+
+        const filterBtns = document.querySelectorAll('.filter__btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('filter__btn--active'));
+                btn.classList.add('filter__btn--active');
+                renderGallery(btn.getAttribute('data-filter'));
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            modalInfo.innerHTML = '';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                modalInfo.innerHTML = '';
+            }
+        });
+
+        renderGallery();
+    </script>
+</body>
+</html>
