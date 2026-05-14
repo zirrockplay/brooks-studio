@@ -1,0 +1,191 @@
+/* ==================== СТРАНИЦА КОЛЛЕКЦИИ ==================== */
+
+.collection {
+    flex: 1;
+    padding: 40px 20px 60px;
+    max-width: 1360px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.collection__header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.collection__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+}
+
+.collection__subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==================== ФИЛЬТРЫ ==================== */
+
+.filter {
+    margin-bottom: 48px;
+}
+
+.filter__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.filter__btn {
+    background: transparent;
+    border: 1px solid var(--text-muted);
+    padding: 10px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter__btn:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+.filter__btn--active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+/* ==================== СЕТКА КАРТОЧЕК ==================== */
+
+.collection__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+}
+
+.collection__empty {
+    text-align: center;
+    padding: 60px;
+    color: var(--text-muted);
+    grid-column: 1 / -1;
+}
+
+.collection__empty i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* ==================== КАРТОЧКА ==================== */
+
+.card {
+    background: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card__inner {
+    overflow: hidden;
+}
+
+.card__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: grayscale(0.15) sepia(0.05);
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card__image {
+    transform: scale(1.02);
+}
+
+.card__info {
+    padding: 16px;
+    text-align: center;
+}
+
+.card__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.card__year {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.card__category {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* ==================== МОДАЛЬНОЕ ОКНО ==================== */
+
+.modal__info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 16px;
+    text-align: center;
+}
+
+.modal__info h3 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 4px;
+}
+
+/* ==================== АДАПТИВ ==================== */
+
+@media (max-width: 768px) {
+    .collection__grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .collection__title {
+        font-size: 36px;
+    }
+    
+    .filter__btn {
+        padding: 6px 16px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 640px) {
+    .collection {
+        padding: 20px 16px 40px;
+    }
+    
+    .collection__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter__buttons {
+        gap: 10px;
+    }
+}
